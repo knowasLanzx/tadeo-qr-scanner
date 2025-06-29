@@ -3,12 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCRYzKlqmkZoQ8gCtIAY7ghFUbWJhuQBmQ",
-  authDomain: "dejesus-qr-scanner.firebaseapp.com",
-  projectId: "dejesus-qr-scanner",
-  storageBucket: "dejesus-qr-scanner.firebasestorage.app",
-  messagingSenderId: "346447380298",
-  appId: "1:346447380298:web:1f512391569464d5570bb3",
+ apiKey: "AIzaSyCemFa7mKMVMU3P3HqFRuc3GYWXF4DayP4",
+  authDomain: "tadeo-qr-scanner-61b18.firebaseapp.com",
+  projectId: "tadeo-qr-scanner-61b18",
+  storageBucket: "tadeo-qr-scanner-61b18.firebasestorage.app",
+  messagingSenderId: "951443172357",
+  appId: "1:951443172357:web:010d37d0116538f352c06c",
 };
 
 const app = initializeApp(firebaseConfig);
