@@ -1,33 +1,63 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
+  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - bsit3a-system-integ',
-    title: 'bsit3a-system-integ',
-    htmlAttrs: { lang: 'en' },
+    titleTemplate: '%s - tadeo-qr-scanner',
+    title: 'tadeo-ar-scanner',
+    htmlAttrs: {
+      lang: 'en'
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ]
   },
 
-  css: [],
-
-  plugins: [
-    '~/plugins/firebase.js'
+  // Global CSS: https://go.nuxtjs.dev/config-css
+  css: [
   ],
 
+  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+  plugins: [
+  ],
+
+  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  buildModules: ['@nuxtjs/vuetify'],
+  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
+  buildModules: [
+    // https://go.nuxtjs.dev/vuetify
+    '@nuxtjs/vuetify',
+  ],
 
-  modules: [],
-
+  // Modules: https://go.nuxtjs.dev/config-modules
+  modules: [
+     '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
+  ],
+  auth: {
+  strategies: {
+    google: {
+        clientId: '37734828387-0jl6etlja9b0qnh9vmgte9oipuee2q48.apps.googleusercontent.com',
+        codeChallengeMethod: '',
+        responseType: 'code',
+        endpoints: {
+          token: 'http://localhost:8000/user/google/', // your backend url to resolve your auth with google and give you the token back
+          userInfo: 'http://localhost:8000/auth/user/' // your endpoint to get the user info after you received the token
+        },
+      },
+  },
+},
+  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -46,5 +76,7 @@ export default {
     }
   },
 
-  build: {}
+  // Build Configuration: https://go.nuxtjs.dev/config-build
+  build: {
+  }
 }
