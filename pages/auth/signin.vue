@@ -31,10 +31,13 @@
 
 <script>
 export default {
+  layout: "auth",
+  middleware: 'guest',
   methods: {
-    signInWithGoogle() {
-      this.$auth.loginWith("google");
-    },
-  },
+    signInWithGoogle(){
+      this.$auth.loginWith('google')
+    }
+  }
 };
 </script>
+
