@@ -55,7 +55,7 @@ export default {
     },
    strategies: {
     google: {
-      clientId: '37734828387-0jl6etlja9b0qnh9vmgte9oipuee2q48.apps.googleusercontent.com',
+      clientId: process.env.OOGLE_CLIENT_ID,
       scheme: 'oauth2',
       endpoints: {
         authorization: "https://accounts.google.com/o/oauth2/auth",
@@ -68,7 +68,7 @@ export default {
       },
       responseType: "token id_token",
       scope: ["openid", "profile", "email"],
-      redirectUri: "http://localhost:3000/auth/callback",
+      redirectUri: process.env.REDIRECT_URI,
       codeChallengeMethod: "",
     },
   }
