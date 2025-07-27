@@ -55,7 +55,7 @@ export default {
     },
    strategies: {
     google: {
-      clientId: process.env.OOGLE_CLIENT_ID,
+      clientId: process.env.GOOGLE_CLIENT_ID,
       scheme: 'oauth2',
       endpoints: {
         authorization: "https://accounts.google.com/o/oauth2/auth",
