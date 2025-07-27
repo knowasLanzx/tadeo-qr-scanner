@@ -37,6 +37,7 @@ export default {
     signInWithGoogle(){
       this.$auth.loginWith('google')
     }
+
   }
 };
 </script>

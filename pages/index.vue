@@ -1,98 +1,83 @@
 <template>
-  <div>
-    <input
-      id="autocomplete"
-      type="text"
-      placeholder="Search destination..."
-      class="search-input"
-    />
-    <div ref="map" style="width: 100%; height: 500px;"></div>
-  </div>
+  <v-row justify="center" align="center">
+    <v-col cols="12" sm="8" md="6">
+      <v-card class="logo py-4 d-flex justify-center">
+        <NuxtLogo />
+        <VuetifyLogo />
+      </v-card>
+      <v-card>
+        <v-card-title class="headline">
+          Welcome to the Vuetify + Nuxt.js template
+        </v-card-title>
+        <v-card-text>
+          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
+          <p>
+            For more information on Vuetify, check out the <a
+              href="https://vuetifyjs.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              documentation
+            </a>.
+          </p>
+          <p>
+            If you have questions, please join the official <a
+              href="https://chat.vuetifyjs.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="chat"
+            >
+              discord
+            </a>.
+          </p>
+          <p>
+            Find a bug? Report it on the github <a
+              href="https://github.com/vuetifyjs/vuetify/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="contribute"
+            >
+              issue board
+            </a>.
+          </p>
+          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
+          <div class="text-xs-right">
+            <em><small>&mdash; John Leider</small></em>
+          </div>
+          <hr class="my-3">
+          <a
+            href="https://nuxtjs.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Nuxt Documentation
+          </a>
+          <br>
+          <a
+            href="https://github.com/nuxt/nuxt.js"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Nuxt GitHub
+          </a>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="primary"
+            nuxt
+            to="/inspire"
+          >
+            Continue
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      map: null,
-      destinationMarker: null,
-      autocomplete: null,
-    };
-  },
-  mounted() {
-    const center = { lat: 14.5995, lng: 120.9842 }; // Default center: Manila
-
-    // Wait for Google Maps to load
-    if (this.$google) {
-      this.initMap(center);
-    } else {
-      const wait = setInterval(() => {
-        if (this.$google) {
-          clearInterval(wait);
-          this.initMap(center);
-        }
-      }, 100);
-    }
-  },
-  methods: {
-    initMap(center) {
-      // Initialize the map
-      this.map = new this.$google.maps.Map(this.$refs.map, {
-        center,
-        zoom: 12,
-      });
-
-      this.initAutocomplete();
-    },
-    initAutocomplete() {
-      const input = document.getElementById('autocomplete');
-      this.autocomplete = new this.$google.maps.places.Autocomplete(input);
-
-      this.autocomplete.addListener('place_changed', () => {
-        const place = this.autocomplete.getPlace();
-
-        if (!place.geometry || !place.geometry.location) {
-          alert('No location data found for selected place');
-          return;
-        }
-
-        const location = place.geometry.location;
-
-        this.map.setCenter(location);
-
-        // Place or update destination marker
-        if (this.destinationMarker) {
-          this.destinationMarker.setMap(null);
-        }
-
-        this.destinationMarker = new this.$google.maps.Marker({
-          position: location,
-          map: this.map,
-          title: 'Destination',
-        });
-
-        console.log('Selected destination:', location.lat(), location.lng());
-      });
-    },
-  },
-};
-</script>
-
-<style scoped>
-.search-input {
-  width: 90%;
-  max-width: 400px;
-  padding: 12px;
-  font-size: 16px;
-  margin: 10px auto;
-  position: absolute;
-  top: 10px;
-  left: 0;
-  right: 0;
-  z-index: 999;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  name: 'IndexPage'
 }
-</style>
+</script>

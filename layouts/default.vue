@@ -108,6 +108,11 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'Sign In',
           to: 'auth/signin'
+        },
+                {
+          icon: 'mdi-chart-bubble',
+          title: 'Qr code Scanner',
+          to: '/QrScanner'
         }
       ],
       miniVariant: false,
