@@ -27,10 +27,11 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '~/plugins/toast.js',  
-    '~/plugins/html5-qrcode.js'
+   plugins: [
+    { src: '~/plugins/google-maps.js', mode: 'client' },
+    { src: '~/plugins/google.js', mode: 'client' }
   ],
+
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

@@ -15,34 +15,60 @@ export default {
   data() {
     return {
       map: null,
+      userMarker: null,
       destinationMarker: null,
       autocomplete: null,
     };
   },
   mounted() {
-    const center = { lat: 14.5995, lng: 120.9842 }; // Default center: Manila
+    const initMap = (lat, lng) => {
+      this.map = new this.$google.maps.Map(this.$refs.map, {
+        center: { lat, lng },
+        zoom: 14,
+      });
+
+      // Show user location
+      this.userMarker = new this.$google.maps.Marker({
+        position: { lat, lng },
+        map: this.map,
+        title: 'Your Location',
+        icon: {
+          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+        },
+      });
+
+      this.initAutocomplete();
+    };
 
     // Wait for Google Maps to load
     if (this.$google) {
-      this.initMap(center);
+      this.getUserLocation(initMap);
     } else {
       const wait = setInterval(() => {
         if (this.$google) {
           clearInterval(wait);
-          this.initMap(center);
+          this.getUserLocation(initMap);
         }
       }, 100);
     }
   },
   methods: {
-    initMap(center) {
-      // Initialize the map
-      this.map = new this.$google.maps.Map(this.$refs.map, {
-        center,
-        zoom: 12,
-      });
-
-      this.initAutocomplete();
+    getUserLocation(callback) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            callback(latitude, longitude);
+          },
+          () => {
+            alert('Location access denied. Using default location.');
+            callback(14.5995, 120.9842); // Manila
+          }
+        );
+      } else {
+        alert('Geolocation not supported.');
+        callback(14.5995, 120.9842);
+      }
     },
     initAutocomplete() {
       const input = document.getElementById('autocomplete');
@@ -52,15 +78,16 @@ export default {
         const place = this.autocomplete.getPlace();
 
         if (!place.geometry || !place.geometry.location) {
-          alert('No location data found for selected place');
+          alert('No location data available');
           return;
         }
 
         const location = place.geometry.location;
 
+        // Center map
         this.map.setCenter(location);
 
-        // Place or update destination marker
+        // Add destination marker
         if (this.destinationMarker) {
           this.destinationMarker.setMap(null);
         }
@@ -80,19 +107,16 @@ export default {
 
 <style scoped>
 .search-input {
-  width: 90%;
-  max-width: 400px;
-  padding: 12px;
-  font-size: 16px;
-  margin: 10px auto;
+  width: 300px;
+  padding: 10px;
+  margin: 10px;
   position: absolute;
-  top: 10px;
-  left: 0;
-  right: 0;
+  top: 0;
   z-index: 999;
+  left: 50%;
+  transform: translateX(-50%);
   background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 </style>
